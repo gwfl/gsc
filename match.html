@@ -1,0 +1,86 @@
+      <ion-view view-title="Setup Match">
+        <ion-content>
+  <div class="col-10 col-offset-90">
+  <a  href="#/event/match" class="button button-small button-light button-outline" ng-click="clearMatch()">
+    <span class="item-note">Reset</span>
+  </a>
+  </div>
+  <ion-item>
+  <div class="row">
+  <div class="col">
+    <label class="item item-input item-select"> {{ sVGM.vm.loc }}
+  <!-- options= display-Value for ng-repeat  track by unique  -->
+      <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
+        ng-model="selCC"
+        ng-change="selCourseF(selCC)" style="width: 30px">
+      </select> 
+    </label>
+  </div>
+
+  <div class="col col-33">
+  <label class="item item-input">
+    <input type="text" placeholder="When:" ng-model="sVGM.vm.when">
+  </label>
+
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">    <label class="item item-input item-floating-label">
+    <span class="input-label"># Players:</span>
+    <input ng-model="sVGM.vm.pp" type="number" placeholder="0">
+  </label>  </div>
+  <div class="col">    <label class="item item-input item-floating-label">
+    <span class="input-label">Wager:</span>
+    <input ng-model="sVGM.vm.ww" type="number"  placeholder="0">
+            </label>  </div>
+  </div>
+    <button class="button button-small button-positive" ng-click="updMatch()"> Save > </button>
+  </ion-item>
+                <h4>   </h4>
+  <ion-item>
+          <div class="row-fluid"> Course Par: <span class="button button-small button-royal">{{ sVGM.vm.cp }}</span></div>
+          <div class="row-fluid"> Course Hcp: <span class="button button-small button-energized">{{ sVGM.vm.ch }}</span></div>
+  <h2> </h2>
+  </ion-item>
+
+              <hr> <h4> JackPot PRIZES:</h4>
+                <h4>   </h4>
+  <div class="row">
+  <div class="col col-20" ng-repeat="pz in xxTimes(5)">
+                    <span class="button button-small button-energized"> [ {{$index - 4}} ] </span>
+                    <input class="item item-input" ng-model="sVGM.vm.pz4[$index]" type="number" />
+  </div>
+  </div>
+                <h4>   </h4>
+  <div class="row">
+  <div class="col col-20" ng-repeat="pz in xxTimes(5)">
+                    <span class="button button-small button-energized"> [ {{$index+1}} ] </span>
+                    <input class="item item-input" ng-model="sVGM.vm.pz4[$index+5]" type="number" />
+  </div>
+  </div>
+
+  <h4>   </h4>
+<div class="list">
+<div  class="item" ng-repeat="pp in sVGM.vp" ng-init="ppIdx = $index">
+  <div class="row">
+  <div class="col-50">    <label class="item item-input item-floating-label">
+    <span class="input-label">Name {{ppIdx+1}}</span>
+    <input ng-model="sVGM.vp[ppIdx].nm" type="text" placeholder="name">
+  </label>  </div>
+  <div class="col-30 col-offset-10">    <label class="item item-input item-floating-label">
+    <span class="input-label">Hcp:</span>
+    <input ng-model="sVGM.vp[ppIdx].th" type="number" placeholder="hcp">
+  </label>  </div>
+  </div>
+  <h4> </h4>
+  <div class="row">
+    hcp: <span class="button button-small button-stable">{{sVGM.vp[ppIdx].h}}:</span>
+  </div>                
+</div>
+  <div class="item">
+<a  href="#" menu-close><button class="button button-small button-positive" ng-click="vp18()"> Done </button></a>
+  </div>
+</div>
+
+      </ion-content>
+      </ion-view>
