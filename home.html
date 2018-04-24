@@ -1,0 +1,60 @@
+      <ion-view view-title="Golf Match">
+        <ion-content class="has-header">
+<div class="row-fluid">
+  Playing At: {{vGm.vm.loc}} on: {{vGm.vm.when}}
+</div>
+
+<div  class="list card" ng-repeat="pp in vGm.vp" ng-init="ppIdx = $index">
+  <div class="row">  <div class="col-40">
+<span class="button" ng-click="calcTsw()"><span class="badge badge-energized">{{vGm.vp[ppIdx].nm}}</span>
+  <span class="badge">{{vGm.vp[ppIdx].th}}</span>
+</span></div>
+<div class="col text-center">
+<span class="button button-positive"> {{ vGm.vp[ppIdx].ts }} </span>
+</div>
+<div class="col text-center">
+<span class="button button-small button-balanced"> {{ vGm.vp[ppIdx].tw | currency }} </span>
+</div>
+<div class="col text-center">
+<button class="button button-small button-royal"> {{ vGm.vp[ppIdx].wolfPts }} </button>
+</div></div>
+  <div class="row-fluid"> 
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[0]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[1]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[2]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[3]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[4]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[5]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[6]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[7]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[8]}} </span>
+  <br />  
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[9]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[10]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[11]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[12]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[13]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[14]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[15]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[16]}} </span>
+<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[17]}} </span>
+  </div>
+</div>
+
+  <h2> </h2>
+
+  <div class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA
+  </div>
+  <h2> </h2>
+<div class="row">
+  <div class="col">
+<a  href="#/event/ALLscores"  class="item item-icon-left">
+  <i class="icon ion-edit"></i> Edit Scores </a>
+  </div>  <div class="col">
+  <a href="#/event/match"  class="item item-icon-left" menu-close>
+    <i class="icon ion-ios-settings"></i> Setup Match </a>  
+  </div>
+</div>
+
+        </ion-content>
+      </ion-view>
