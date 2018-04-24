@@ -1,0 +1,59 @@
+      <ion-view view-title="Edit Scores">      <ion-content>
+      <ion-list>
+        <div ng-repeat="group in groups"  ng-init="hhIdx = $index">
+          <ion-item class="item-stable"
+                    ng-click="toggleGroup(group)"
+                    ng-class="{active: isGroupShown(group)}">
+              <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+            &nbsp;
+            <span class="button button-small button-calm">HOLE # {{$index+1}}</span>  
+            <span class="badge">  Par {{sVGM.vm.cp[$index]}} / h:{{sVGM.vm.ch[$index]}} </span>  
+          </ion-item>
+          <ion-item class="item-accordion"
+ ng-repeat="pp in sVGM.vp" ng-init="ppIdx = $index"
+ ng-show="isGroupShown(group)">
+              <div class="row">
+                  <div class="col-25">
+                      <span class="button button-small button-stable" ng-click="calcTsw()">
+                          <span class="button button-small button-energized">
+                              {{sVGM.vp[ppIdx].nm}}                          </span>
+                          <span class="button button-small button-stable">{{sVGM.vp[ppIdx].th}}</span>
+                      </span>
+   <br />
+                  </div>
+                  <div class="col">
+                      <span class="button button-small button-light"> 
+                      Score: {{ sVGM.vp[ppIdx].ts }}  <span class="button button-small button-light"> </span>
+                      jPot: {{ sVGM.vp[ppIdx].tw | currency }}  <span class="button button-small button-light"> </span>
+                      Wolf: {{ sVGM.vp[ppIdx].wolfPts }} </span>
+                  </div>
+              </div>
+
+<div class="row"><div class="col text-center">
+  <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'s')"> - </button> 
+  <span class="button button-small  button-light">h:{{sVGM.vp[ppIdx].h[hhIdx]}}</span>
+  <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'s')"> + </button> 
+<br /><br />
+  <span class="button  button-positive"  ng-click="adjVP(0,ppIdx,hhIdx,'s')">{{sVGM.vp[ppIdx].s[hhIdx]}}</span>
+</div><div class="col text-center">
+  <span class="button button-small button-balanced"> {{ sVGM.vp[ppIdx].w[hhIdx] | currency }} </span>
+<br />  <span class="button button-small button-light"> bonus:</span> <br />
+    <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'u')"> - </button>
+      <span class="button button-small button-light"> {{ sVGM.vp[ppIdx].u2[hhIdx] | currency }} </span>
+    <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'u')"> + </button>
+</div><div class="col text-center">
+    <span class="button button-small button-royal" ng-click="wrPop(ppIdx,hhIdx)">{{sVGM.vp[ppIdx].wolf[hhIdx].role}} &nbsp; <i class="icon ion-chevron-down"></i></span>
+          <br />  <span class="button button-small button-light"> winner:</span> <br />
+          <span class="button button-small button-light"> {{sVGM.vp[ppIdx].wolf[hhIdx].pts}}</span>
+          <label class="toggle toggle-energized">
+              <input type="checkbox" ng-model="sVGM.vp[ppIdx].wolf[hhIdx].winner" ng-change="adjVP(0,ppIdx,hhIdx,'s')">
+              <div class="track">
+                  <div class="handle"></div>
+              </div>
+          </label>
+</div>    </div>
+      <h4> <br>  </h4>
+          </ion-item>
+        </div>
+      </ion-list>
+      </ion-content>      </ion-view>
