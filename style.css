@@ -1,0 +1,48 @@
+/* Styles go here */
+
+body {
+  cursor: url('https://ionicframework.com/img/finger.png'), auto;
+}
+
+.mylabel {
+    position: relative;
+}
+
+.mylabel:after {
+    content: '<>';
+    font: 11px "Consolas", monospace;
+    color: #aaa;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 18px;
+    top: 18px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #ddd;
+    position: absolute;
+    pointer-events: none;
+}
+
+.mylabel .select {
+    padding: 3px;
+    margin: 0;
+    border: none;
+    outline: none;
+    display: inline-block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    white-space: normal;
+  -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    background: #f8f8f8 !important;
+    color: #888;
+    height: 30px;
+    -webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    border-radius: 4px !important;
+    width: 100%;
+}
