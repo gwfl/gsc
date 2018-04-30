@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>Blank Ionic 1.3</title>
 
-    <link rel="stylesheet" href="https://code.ionicframework.com/1.3.2/css/ionic.css" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/1.3.3/css/ionic.css" />
   <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
   -->
@@ -13,7 +13,7 @@
 
     <!-- ionic/angularjs js -->
     <script src="https://code.ionicframework.com/1.3.3/js/ionic.bundle.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-resource.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -30,23 +30,6 @@
     </ion-nav-bar>
     
     <ion-nav-view> Loading ... </ion-nav-view>
-
-    <script id="wrPopup.html" type="text/ng-template">
-
-    <ion-radio name="wRole" ng-repeat="wr in wwRR" ng-value="wr" ng-model="role" ng-change="selWR(wr,ppIdx,hhIdx);">
-          {{ wr }}
-        </ion-radio>    
-    </script>
-    
-    <script id="gcPopup.html" type="text/ng-template">
-    <ion-radio ng-repeat="gc in vCourses"
-                   ng-value="gc.Name"
-                   ng-model="selCC"
-                   ng-change="selCourseF(selCC)"
-                   name="selGC">
-      {{ gc.Name }}
-    </ion-radio>    
-    </script>
 
   </body>
 </html>
