@@ -43,29 +43,10 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
     $rootScope.vCourses = angular.copy(jsonData.records);
   });
 
-  dbSvc.initStats;
-
+  $rootScope.vGM00 = {};
+  dbSvc.initStats();
+  //console.log($rootScope.vGM00);
   //  localStorage.setItem('ls_vGM00', jsonData.fields.vGMstats);
-
-  $rootScope.vm00 = { when: "When", loc: "Where", pp: 0, ww: 0, tt: 0, 
-    cp: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ch: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    jp: 0, pz4: [15, 8, 5, 3, 1, 0, -2, -4, -6, -8], mip: false };
-  $rootScope.vp00 = { nm: " ", id: "", tm: "", th: 0, ts: 0, tw: 0, wolfPts: 0,
-    wolf: [ { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false },
-            { role: "Hunter", pts: 0, winner: false }, { role: "Hunter", pts: 0, winner: false }
-          ], 
-    s: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-    h: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    w: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    u1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    u2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]  };
 
   $rootScope.wwRR = ["Wolf", "Hunter", "Lone-W", "Blind-W", "(pig)", "xHunter"]; 
 
@@ -95,10 +76,12 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 .controller('MainCtrl', function($rootScope, $scope, $timeout, dbSvc) {
 
   // $rootScope.vGM00 = JSON.parse(localStorage.getItem('ls_vGM00'));
+ //console.log("-5", $rootScope.vGM00);
   
   var rsScore = dbSvc.scoreById.get({recId:'5879174153893a6e000036e5'}, function() {
     $scope.sVGM = rsScore.vGMstats;
     localStorage.setItem('ls_vGMstats', JSON.stringify(rsScore.vGMstats));
+  // console.log("-2a", $scope.sVGM.vp);
   });
 
   $scope.selCourseF = function (selCC) {
@@ -136,26 +119,26 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $scope.wolfPts = function(jj) {
     var wxx = 1, ii = 0;
     for (ii = 0; ii < $scope.sVGM.vm.pp; ii++) {
-      $scope.sVGM.vp[ii].wolf[jj].pts = 0;
-      if ($scope.sVGM.vp[ii].wolf[jj].winner) {
-        switch ($scope.sVGM.vp[ii].wolf[jj].role) {
+      $scope.sVGM.vp[ii].wolf.pts[jj] = 0;
+      if ($scope.sVGM.vp[ii].wolf.winner[jj]) {
+        switch ($scope.sVGM.vp[ii].wolf.role[jj]) {
          case 'xHunter': 
-           $scope.sVGM.vp[ii].wolf[jj].pts = 1;
+           $scope.sVGM.vp[ii].wolf.pts[jj] = 1;
            break;
          case 'Hunter': 
-           $scope.sVGM.vp[ii].wolf[jj].pts = 3;
+           $scope.sVGM.vp[ii].wolf.pts[jj] = 3;
            break;
          case 'Wolf': 
-           $scope.sVGM.vp[ii].wolf[jj].pts = 2;
+           $scope.sVGM.vp[ii].wolf.pts[jj] = 2;
            break;
          case 'Lone-W': 
-           $scope.sVGM.vp[ii].wolf[jj].pts = 4;
+           $scope.sVGM.vp[ii].wolf.pts[jj] = 4;
            break;
          case 'Blind-W': 
-           $scope.sVGM.vp[ii].wolf[jj].pts = 2 * 3;   // triple points for Blind-W
+           $scope.sVGM.vp[ii].wolf.pts[jj] = 2 * 3;   // triple points for Blind-W
            break;
          case '(pig)': 
-           $scope.sVGM.vp[ii].wolf[jj].pts = 2 * 2;   // double points for (pig)
+           $scope.sVGM.vp[ii].wolf.pts[jj] = 2 * 2;   // double points for (pig)
            break;
          default: 
            break;
@@ -181,7 +164,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
         $scope.sVGM.vp[ii].ts += $scope.sVGM.vp[ii].s[jj] + $scope.sVGM.vm.cp[jj];
 
         $scope.wolfPts(jj);
-        $scope.sVGM.vp[ii].wolfPts += $scope.sVGM.vp[ii].wolf[jj].pts;
+        $scope.sVGM.vp[ii].wolfPts += $scope.sVGM.vp[ii].wolf.pts[jj];
       } }
       $scope.sVGM.vm.jp -= $scope.sVGM.vp[ii].tw;
     }
@@ -192,12 +175,12 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
     $scope.sVGM.vp = [];  
     $scope.sVGM.vp.length = $scope.sVGM.vm.pp;
     for (ii = 0; ii < $scope.sVGM.vm.pp; ii++) {
-      $scope.sVGM.vp[ii] = angular.copy($rootScope.vp00);
+      $scope.sVGM.vp[ii] = angular.copy($rootScope.vGM00.vp);
     }
     $scope.updsVGM();   //  updMatch()
   };
   $scope.clearMatch = function() {
-    $scope.sVGM.vm = angular.copy($rootScope.vm00);
+    $scope.sVGM.vm = angular.copy($rootScope.vGM00.vm);
     $scope.updMatch();
   };
 
@@ -233,11 +216,15 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 
   $scope.updsVGM = function () {  
     $scope.sVGM.urc += 1;
+  // console.log("-1s", $scope.sVGM);
     dbSvc.scoreById.update({recId:'5879174153893a6e000036e5'}, {type: "ngR.update", idx: Date.now(), vGMstats: $scope.sVGM});
   };
-  
+         // console.log("-4", $rootScope.vGM00);
+ 
 })
 .controller('ViewCtrl', function($rootScope, $scope, $timeout, dbSvc) {
+
+     //   console.log("-3", $rootScope.vGM00);
 
 $scope.timer = function() {
   var rsScore = dbSvc.scoreById.get({recId:'5879174153893a6e000036e5'}, function() {
@@ -250,12 +237,14 @@ $scope.timer = function() {
 $timeout($scope.timer, 50);
 
 })
-.factory('dbSvc', function ($resource, $http) {
+.factory('dbSvc', function ($rootScope, $resource, $http) {
 
   var _initStats = function () {   // recMqVmgrTh17ixkj     // /recKbHjCbXLbJuSuJ
     $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Players/recMqVmgrTh17ixkj?api_key=key66fQg5IghIIQmb')
       .success(function (jsonData) {
         localStorage.setItem('ls_vGM00', jsonData.fields.vGMstats);
+        $rootScope.vGM00 = JSON.parse(jsonData.fields.vGMstats);
+    //    console.log("-2", $rootScope.vGM00);
     });
   };
 
@@ -275,7 +264,7 @@ $timeout($scope.timer, 50);
   )};
     
   return {
-    initStats: _initStats(),
+    initStats: _initStats,
     scoreById: _scoreById(),
     ngrScores: _ngrScores()
   };
