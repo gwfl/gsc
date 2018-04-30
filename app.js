@@ -163,8 +163,8 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
         $scope.sVGM.vp[ii].tw += pz4 + $scope.sVGM.vp[ii].u2[jj];
         $scope.sVGM.vp[ii].ts += $scope.sVGM.vp[ii].s[jj] + $scope.sVGM.vm.cp[jj];
 
-        $scope.wolfPts(jj);
-        $scope.sVGM.vp[ii].wolfPts += $scope.sVGM.vp[ii].wolf.pts[jj];
+      //  $scope.wolfPts(jj);
+      //  $scope.sVGM.vp[ii].wolfPts += $scope.sVGM.vp[ii].wolf.pts[jj];
       } }
       $scope.sVGM.vm.jp -= $scope.sVGM.vp[ii].tw;
     }
