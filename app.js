@@ -1,4 +1,4 @@
-angular.module('gscAppH', ['ionic', 'ngResource'])
+angular.module('gscAppH', ['ionic', 'ngResource'])   
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('eventmenu', {
@@ -78,7 +78,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   // $rootScope.vGM00 = JSON.parse(localStorage.getItem('ls_vGM00'));
  //console.log("-5", $rootScope.vGM00);
   
-  var rsScore = dbSvc.scoreById.get({recId:'5879174153893a6e000036e5'}, function() {
+  var rsScore = dbSvc.scoreById.get({recId:'5ae78ec6150b711200002e1a'}, function() {
     $scope.sVGM = rsScore.vGMstats;
     localStorage.setItem('ls_vGMstats', JSON.stringify(rsScore.vGMstats));
   // console.log("-2a", $scope.sVGM.vp);
@@ -217,7 +217,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $scope.updsVGM = function () {  
     $scope.sVGM.urc += 1;
   // console.log("-1s", $scope.sVGM);
-    dbSvc.scoreById.update({recId:'5879174153893a6e000036e5'}, {type: "ngR.update", idx: Date.now(), vGMstats: $scope.sVGM});
+    dbSvc.scoreById.update({recId:'5ae78ec6150b711200002e1a'}, {type: "ngR.update", idx: Date.now(), vGMstats: $scope.sVGM});
   };
          // console.log("-4", $rootScope.vGM00);
  
@@ -227,7 +227,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
      //   console.log("-3", $rootScope.vGM00);
 
 $scope.timer = function() {
-  var rsScore = dbSvc.scoreById.get({recId:'5879174153893a6e000036e5'}, function() {
+  var rsScore = dbSvc.scoreById.get({recId:'5ae78ec6150b711200002e1a'}, function() {
     $rootScope.vGm = rsScore.vGMstats;
     localStorage.setItem('ls_vGMstats', JSON.stringify(rsScore.vGMstats));
   });
@@ -250,14 +250,14 @@ $timeout($scope.timer, 50);
 
 //    return $resource('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Players?api_key=key66fQg5IghIIQmb');
 
-  var _ngrScores = function () {
-    var url = 'https://gwfl-256d.restdb.io/rest/scores/apikey=5821f61550e9b39131fe1b6f';    //  5a6b9e9da07bee72000109a7   5879174153893a6e000036e5
+  var _ngrUtil = function () {
+    var url = 'https://gwfl-256d.restdb.io/rest/utility?apikey=5821f61550e9b39131fe1b6f';    //  5a6b9e9da07bee72000109a7   5ae78ec6150b711200002e1a  
     return $resource(url,      
     { create: { method: 'POST' } }
   )};
 
   var _scoreById = function () {
-    var url = 'https://gwfl-256d.restdb.io/rest/scores/:recId?apikey=5821f61550e9b39131fe1b6f';    //  5a6b9e9da07bee72000109a7   5879174153893a6e000036e5
+    var url = 'https://gwfl-256d.restdb.io/rest/scores/:recId?apikey=5821f61550e9b39131fe1b6f';    //  5a6b9e9da07bee72000109a7   5ae78ec6150b711200002e1a  
     return $resource(url,      
     { recId: '@_id' }, 
     { update: { method: 'PUT' } }
@@ -266,6 +266,6 @@ $timeout($scope.timer, 50);
   return {
     initStats: _initStats,
     scoreById: _scoreById(),
-    ngrScores: _ngrScores()
+    ngrUtil: _ngrUtil()
   };
 });
