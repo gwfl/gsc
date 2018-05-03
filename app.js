@@ -37,6 +37,9 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $urlRouterProvider.otherwise("/event/home");
 })
 .run( function ($rootScope, $http, dbSvc) {
+  dbSvc.ngrUtil.save( function(newMatch, respHeaders) {  
+      $rootScope.matchID = newMatch._id; } );
+
   //  https://gwfl.github.io/gsc/courses.json  https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb
   $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
   .success(function (jsonData) {
@@ -47,6 +50,9 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   dbSvc.initStats();
   //console.log($rootScope.vGM00);
   //  localStorage.setItem('ls_vGM00', jsonData.fields.vGMstats);
+
+  dbSvc.ngrUtil.save( function(newMatch, respHeaders) {  
+      $rootScope.matchID = newMatch._id; } );
 
   $rootScope.wwRR = ["Wolf", "Hunter", "Lone-W", "Blind-W", "(pig)", "xHunter"]; 
 
