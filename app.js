@@ -51,8 +51,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   //console.log($rootScope.vGM00);
   //  localStorage.setItem('ls_vGM00', jsonData.fields.vGMstats);
 
-  dbSvc.ngrUtil.save( function(newMatch, respHeaders) {  
-      $rootScope.matchID = newMatch._id; } );
+  // dbSvc.ngrUtil.save( function(newMatch, respHeaders) { $rootScope.matchID = newMatch._id; } );
 
   $rootScope.wwRR = ["Wolf", "Hunter", "Lone-W", "Blind-W", "(pig)", "xHunter"]; 
 
