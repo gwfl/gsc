@@ -37,6 +37,21 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $urlRouterProvider.otherwise("/event/home");
 })
 .run( function ($rootScope, $http, dbSvc) {
+      
+  navigator.geolocation.getCurrentPosition(function(pos) {
+          $rootScope.coords = {"lat": pos.coords.latitude, "lon": pos.coords.longitude};
+        }, function(err) {
+          alert('Unable to get location: ' + err.message);
+        });
+  /* 
+    <h4> </h4>
+
+  <div class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA
+  </div>
+
+  <h6> {{coords.lat}} , {{coords.lon}} </h6>
+  */
+
   dbSvc.ngrUtil.save( function(newMatch, respHeaders) {  
       $rootScope.matchID = newMatch._id; } );
 
@@ -236,7 +251,12 @@ $scope.timer = function() {
     $rootScope.vGm = rsScore.vGMstats;
     localStorage.setItem('ls_vGMstats', JSON.stringify(rsScore.vGMstats));
   });
-  // $rootScope.appLog += 'y';
+    
+  navigator.geolocation.getCurrentPosition(function(pos) {
+          $rootScope.coords = {"lat": pos.coords.latitude, "lon": pos.coords.longitude};
+        }, function(err) {
+          alert('Unable to get location: ' + err.message);
+        });
   $timeout($scope.timer, 1500);    // 1.5 second delay
 };
 $timeout($scope.timer, 50);
