@@ -38,22 +38,22 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 })
 .run( function ($rootScope, $http, dbSvc) {
       
-  navigator.geolocation.getCurrentPosition(function(pos) {
+/*  navigator.geolocation.getCurrentPosition(function(pos) {
           $rootScope.coords = {"lat": pos.coords.latitude, "lon": pos.coords.longitude};
         }, function(err) {
           alert('Unable to get location: ' + err.message);
         });
-  /* 
-    <h4> </h4>
+
+<h4> </h4>
 
   <div class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA
   </div>
 
   <h6> {{coords.lat}} , {{coords.lon}} </h6>
-  */
 
   dbSvc.ngrUtil.save( function(newMatch, respHeaders) {  
       $rootScope.matchID = newMatch._id; } );
+*/
 
   //  https://gwfl.github.io/gsc/courses.json  https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb
   $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
