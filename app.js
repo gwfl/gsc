@@ -57,9 +57,9 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 33.9029119,-118.0028019,649m/data=!3m1!1e3    33.90594, -118.00367
 */
 
-        $rootScope.coords = {"lat": 33.841, "lon": -118.382};
+        $rootScope.coords = {"lat": 33.841, "lon": -118.382};  // getCurrentPosition   watchPosition
        
-                    navigator.geolocation.getCurrentPosition(function(pos) {
+                    navigator.geolocation.watchPosition(function(pos) {
                alert(pos);
           $rootScope.coords.lat = pos.coords.latitude;
           $rootScope.coords.lon = pos.coords.longitude;
