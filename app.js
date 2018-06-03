@@ -63,14 +63,27 @@ $rootScope.geoArr = { "lat": [ 33.902, 33.802, 33.702, 33.602, 33.502  ],  "lon"
   navigator.geolocation.watchPosition(function(pos) {
           $rootScope.coords.lat = pos.coords.latitude;
           $rootScope.coords.lon = pos.coords.longitude;
-               alert(pos.coords.latitude);
 
 $rootScope.geoD = dbSvc.geoDist($rootScope.geoArr.lat[1], $rootScope.geoArr.lon[1], $rootScope.coords.lat, $rootScope.coords.lon, 'K') -11; 
+               alert(pos.coords.latitude);
 if ($rootScope.geoD < 1) { $rootScope.geoD = Math.round($rootScope.geoD * 1000); }
 
 		    }, function(err) {
           alert('Unable to get location: ' + err.message);
-        });
+    switch(err.code) {
+        case err.PERMISSION_DENIED:
+            alert( "User denied the request for Geolocation.");
+            break;
+        case err.POSITION_UNAVAILABLE:
+            alert( "Location information is unavailable.");
+            break;
+        case err.TIMEOUT:
+            alert( "The request to get user location timed out.");
+            break;
+        case err.UNKNOWN_ERROR:
+            alert( "An unknown error occurred.");
+            break;
+    }        });
 
   //  https://gwfl.github.io/gsc/courses.json  https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb
   $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
