@@ -53,7 +53,23 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 
   dbSvc.ngrUtil.save( function(newMatch, respHeaders) {  
       $rootScope.matchID = newMatch._id; } );
+
+33.9029119,-118.0028019,649m/data=!3m1!1e3    33.90594, -118.00367
 */
+
+        $rootScope.coords = {"lat": 33.841, "lon": -118.382};
+       
+                    navigator.geolocation.getCurrentPosition(function(pos) {
+               alert(pos);
+          $rootScope.coords.lat = pos.coords.latitude;
+          $rootScope.coords.lon = pos.coords.longitude;
+        }, function(err) {
+          alert('Unable to get location: ' + err.message);
+        });
+
+$rootScope.geoArr = { "lat": [ 33.902, 33.802, 33.702, 33.602, 33.502  ],  "lon": [ -118.00367, -118.00467, -118.00567, -118.00667, -118.00767 ] };
+$rootScope.geoD = dbSvc.geoDist($rootScope.geoArr.lat[1], $rootScope.geoArr.lon[1], $rootScope.coords.lat, $rootScope.coords.lon, 'K') -11; 
+if ($rootScope.geoD < 1) { $rootScope.geoD = Math.round($rootScope.geoD * 1000); }
 
   //  https://gwfl.github.io/gsc/courses.json  https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb
   $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
@@ -287,8 +303,23 @@ $timeout($scope.timer, 50);
     { recId: '@_id' }, 
     { update: { method: 'PUT' } }
   )};
-    
+  
+var _geoDist = function distance(lat1, lon1, lat2, lon2, unit) {
+	var radlat1 = Math.PI * lat1/180;
+	var radlat2 = Math.PI * lat2/180;
+	var theta = lon1-lon2;
+	var radtheta = Math.PI * theta/180;
+	var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+	dist = Math.acos(dist);
+	dist = dist * 180/Math.PI;
+	dist = dist * 60 * 1.1515 / 1760;
+	if (unit=="K") { dist = dist * 1.609344 * 1760 }
+	if (unit=="N") { dist = dist * 0.8684 * 1760 }
+	return dist;
+};
+
   return {
+    geoDist: _geoDist,
     initStats: _initStats,
     scoreById: _scoreById(),
     ngrUtil: _ngrUtil()
