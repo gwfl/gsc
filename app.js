@@ -60,10 +60,10 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
         $rootScope.coords = {"lat": 33.841, "lon": -118.382};  // getCurrentPosition   watchPosition
 $rootScope.geoArr = { "lat": [ 33.902, 33.802, 33.702, 33.602, 33.502  ],  "lon": [ -118.00367, -118.00467, -118.00567, -118.00667, -118.00767 ] };
        
-     navigator.geolocation.watchPosition(function(pos) {
-               alert(pos);
+  navigator.geolocation.watchPosition(function(pos) {
           $rootScope.coords.lat = pos.coords.latitude;
           $rootScope.coords.lon = pos.coords.longitude;
+               alert(pos.coords.latitude);
 
 $rootScope.geoD = dbSvc.geoDist($rootScope.geoArr.lat[1], $rootScope.geoArr.lon[1], $rootScope.coords.lat, $rootScope.coords.lon, 'K') -11; 
 if ($rootScope.geoD < 1) { $rootScope.geoD = Math.round($rootScope.geoD * 1000); }
