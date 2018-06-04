@@ -49,7 +49,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 
             if(navigator.geolocation){
                // timeout at 60000 milliseconds (60 seconds)
-               var options = {timeout:60000};
+               var options = {enableHighAccuracy: true, maximumAge:3000, timeout: 10000};
   //             alert("pos-1");
     navigator.geolocation.watchPosition(function(pos) {
       $rootScope.coords.lat = pos.coords.latitude;
