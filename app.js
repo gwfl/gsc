@@ -33,8 +33,8 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $rootScope.vGM00    = {};
   $rootScope.vGm      = {};  
   $rootScope.coords = {"lat": 0, "lon": 0};
-  $rootScope.geoArr   = { "lat": [  33.90,    33.80,     33.70,    33.60,    33.50   ],
-                          "lon": [ -118.098, -118.078,  -118.068, -118.058, -118.048 ]  };
+  $rootScope.geoArr   = { "lat": [ 33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8 ],
+                          "lon": [ -118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3 ]  };
 
   // get list of known Courses
   $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
@@ -297,10 +297,10 @@ var _initrScope = function () {   // recMqVmgrTh17ixkj     // /recKbHjCbXLbJuSuJ
   });
 
   // get list of known Courses
-  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
-  .success(function (jsonData) {
-    $rootScope.vCourses = angular.copy(jsonData.records);
-  });
+//  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
+//  .success(function (jsonData) {
+//    $rootScope.vCourses = angular.copy(jsonData.records);
+//  });
 
 };
 
