@@ -5,6 +5,11 @@
   Playing At: {{vGm.vm.loc}} 
 
                 <h4>   </h4>
+  <!-- options= display-Value for ng-repeat  track by unique  -->
+      <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
+        ng-model="selCC"
+        ng-change="selCourseF(selCC)" style="width: 30px">
+      </select> 
   
 </div>
 
