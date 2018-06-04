@@ -3,26 +3,8 @@
 
 <div class="row-fluid">
   Playing At: {{vGm.vm.loc}} 
-
-                <h4>   </h4>
-  <!-- options= display-Value for ng-repeat  track by unique  -->
-      <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
-        ng-model="selCC"
-        ng-change="selCourseF(selCC)" style="width: 30px">
-      </select> 
-  
+                <h4>   </h4>  
 </div>
-
-<ion-item>
-    <label class="item item-input item-select"> C {{ sVGM.vm.loc }}
-  <!-- options= display-Value for ng-repeat  track by unique  -->
-      <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
-        ng-model="selCC"
-        ng-change="selCourseF(selCC)" style="width: 30px">
-      </select> 
-    </label>
-
-</ion-item>
 
 <div  class="list card" ng-repeat="pp in vGm.vp" ng-init="ppIdx = $index">
   <div class="row">  <div class="col-40">
