@@ -1,8 +1,23 @@
-      <ion-view view-title="Golf Match">
-        <ion-content class="has-header">
+<ion-view view-title="Golf Match">
+  <ion-content class="has-header">
+
 <div class="row-fluid">
-  Playing At: {{vGm.vm.loc}} on: {{vGm.vm.when}} geoD: {{geoD}}
+  Playing At: {{vGm.vm.loc}} 
+
+                <h4>   </h4>
+  
 </div>
+
+<ion-item>
+    <label class="item item-input item-select"> {{ sVGM.vm.loc }}
+  <!-- options= display-Value for ng-repeat  track by unique  -->
+      <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
+        ng-model="selCC"
+        ng-change="selCourseF(selCC)" style="width: 30px">
+      </select> 
+    </label>
+
+</ion-item>
 
 <div  class="list card" ng-repeat="pp in vGm.vp" ng-init="ppIdx = $index">
   <div class="row">  <div class="col-40">
@@ -28,7 +43,7 @@
 <span class="button button-small button-light"> {{vGm.vp[ppIdx].s[6]}} </span>
 <span class="button button-small button-light"> {{vGm.vp[ppIdx].s[7]}} </span>
 <span class="button button-small button-light"> {{vGm.vp[ppIdx].s[8]}} </span>
-  <br />  
+  <br />
 <span class="button button-small button-light"> {{vGm.vp[ppIdx].s[9]}} </span>
 <span class="button button-small button-light"> {{vGm.vp[ppIdx].s[10]}} </span>
 <span class="button button-small button-light"> {{vGm.vp[ppIdx].s[11]}} </span>
@@ -41,18 +56,68 @@
   </div>
 </div>
 
-  <h4> </h4>
+  <h6> 
   <div class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA
+            &nbsp;  <span class="button button-small button-light"> {{coords.lat}}, {{coords.lon}}</span>   
   </div>
-  <h6> {{coords.lat}} , {{coords.lon}} </h6>
+</h6>
+                      <span class="button button-small button-stable" ng-click="geoCalc()"> geoCalc </span>
+   <br />
 
-<div class="row">  <div class="col">
-<a  href="#/event/ALLscores"  class="item item-icon-left">
-  <i class="icon ion-edit"></i> Edit Scores </a>
-  </div>  <div class="col">
-  <a href="#/event/match"  class="item item-icon-left" menu-close>
-    <i class="icon ion-ios-settings"></i> Setup Match </a>  
-</div>  </div>
+  <ion-list>
+                <h4>   </h4>
+                <h4>   </h4>
+  <div ng-repeat="group in groups"  ng-init="hhIdx = $index">
+          <ion-item class="item-stable"
+                    ng-click="toggleGroup(group)"
+                    ng-class="{active: isGroupShown(group)}">
+              <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+            &nbsp;  <span class="button button-small button-calm">HOLE # {{$index+1}}</span>   
+            &nbsp;  <span class="button button-small button-stable"> {{group.geoD}} </span>   
+            <span class="badge">  Par {{sVGM.vm.cp[$index]}} / h:{{sVGM.vm.ch[$index]}} </span>  
+          </ion-item>
+          <ion-item class="item-accordion"
+ ng-repeat="pp in sVGM.vp" ng-init="ppIdx = $index"
+ ng-show="isGroupShown(group)">
+              <div class="row">
+                  <div class="col-25">
+                      <span class="button button-small button-stable" ng-click="geoCalc()">
+                          <span class="button button-small button-energized">
+                              {{sVGM.vp[ppIdx].nm}}                          </span>
+                          <span class="button button-small button-stable">{{sVGM.vp[ppIdx].th}}</span>
+                      </span>
+   <br />
+                  </div>
+                  <div class="col">
+                      <span class="button button-small button-light"> 
+                      Score: {{ sVGM.vp[ppIdx].ts }}  <span class="button button-small button-light"> </span>
+                      jPot: {{ sVGM.vp[ppIdx].tw | currency }}  <span class="button button-small button-light"> </span>
+                      Wolf: {{ sVGM.vp[ppIdx].wolfPts }} </span>
+                  </div>
+              </div>
 
-        </ion-content>
-      </ion-view>
+<div class="row"><div class="col text-center">
+  <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'s')"> - </button> 
+  <span class="button button-small  button-light">h:{{sVGM.vp[ppIdx].h[hhIdx]}}</span>
+  <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'s')"> + </button> 
+<br /><br />
+  <span class="button  button-positive"  ng-click="adjVP(0,ppIdx,hhIdx,'s')">{{sVGM.vp[ppIdx].s[hhIdx]}}</span>
+</div><div class="col text-center">
+  <span class="button button-small button-balanced"> {{ sVGM.vp[ppIdx].w[hhIdx] | currency }} </span>
+<br />  <span class="button button-small button-light"> bonus:</span> <br />
+    <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'u')"> - </button>
+      <span class="button button-small button-light"> {{ sVGM.vp[ppIdx].u2[hhIdx] | currency }} </span>
+    <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'u')"> + </button>
+</div><div class="col text-center">
+    <span class="button button-small button-royal" ng-click="geoDist(ppIdx,hhIdx)">
+      {{sVGM.vp[ppIdx].wolf[hhIdx].role}} &nbsp; <i class="icon ion-chevron-down"></i></span>
+          <br />  <span class="button button-small button-light"> winner:</span> <br />
+          <span class="button button-small button-light"> {{sVGM.vp[ppIdx].wolf[hhIdx].pts}}</span>
+</div>    </div>
+      <h4> <br>  </h4>
+          </ion-item>
+  </div>
+  </ion-list>
+
+  </ion-content>
+</ion-view>
