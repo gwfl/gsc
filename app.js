@@ -27,7 +27,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   
   $urlRouterProvider.otherwise("/event/home");
 })
-.run( function ($rootScope, geoSvc) {
+.run( function ($rootScope, $http, geoSvc) {
 
   $rootScope.vCourses = {};
   $rootScope.vGM00    = {};
@@ -36,6 +36,12 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $rootScope.geoArr   = { "lat": [  33.90,    33.80,     33.70,    33.60,    33.50   ],
                           "lon": [ -118.098, -118.078,  -118.068, -118.058, -118.048 ]  };
 
+  // get list of known Courses
+  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
+  .success(function (jsonData) {
+    $rootScope.vCourses = angular.copy(jsonData.records);
+  });
+	
   geoSvc.initrScope();
 
          var watchID;
@@ -43,7 +49,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
             if(navigator.geolocation){
                // timeout at 60000 milliseconds (60 seconds)
                var options = {timeout:60000};
-               alert("pos");
+               alert("pos-1");
     navigator.geolocation.watchPosition(function(pos) {
       $rootScope.coords.lat = pos.coords.latitude;
       $rootScope.coords.lon = pos.coords.longitude;
