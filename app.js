@@ -37,10 +37,11 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
                           "lon": [ -118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3 ]  };
 
   // get list of known Courses
-  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
-  .success(function (jsonData) {
-    $rootScope.vCourses = angular.copy(jsonData.records);
-  });
+ // $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
+ // .success(function (jsonData) {
+ //   $rootScope.vCourses = angular.copy(jsonData.records);
+ // });
+  $rootScope.vCourses = [];
 	
   geoSvc.initrScope();
 
@@ -49,7 +50,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
             if(navigator.geolocation){
                // timeout at 60000 milliseconds (60 seconds)
                var options = {timeout:60000};
-               alert("pos-1");
+  //             alert("pos-1");
     navigator.geolocation.watchPosition(function(pos) {
       $rootScope.coords.lat = pos.coords.latitude;
       $rootScope.coords.lon = pos.coords.longitude;
@@ -57,7 +58,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
       alert('Unable1 to get location: ' + err.message);
     }, options);
             } else {
-               alert("Sorry, browser does not support geolocation!");
+               alert("Sorry, your browser does not support geolocation!");
             }
 
   $rootScope.xxTimes = function (nn) {
@@ -113,178 +114,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
     return group.show;
   };
 
-  $scope.contacts = [
-    {
-      name: 'Gordon Freeman'
-    },
-    {
-      name: 'Barney Calhoun'
-    },
-    {
-      name: 'Lamarr the Headcrab'
-    },
-  ];
-  $ionicModal.fromTemplateUrl('geomodal.html', function (m1) {
-    $rootScope.modal1 = m1;
-  }, {
-    animation: 'slide-in-up',
-    focusFirstInput: true   
-  });
-
-  $scope.newUser = {};
-
-  $scope.createContact = function () {  // hideModal1
-    console.log('Create Contact', $scope.newUser);
-    $scope.hideModal1();
-  };
-  $scope.hideModal1 = function () {  
-    $rootScope.modal1.hide();
-  };
-
 })
-/* 
- var rdbContact = $resource('https://gwfl-256d.restdb.io/rest/songlist?apikey=5821f61550e9b39131fe1b6f');
- var todo1 = rdbContact.get({idx: 'd20170107t1500'});
-//create a todo
-var todo1 = new rdbContact();
-todo1.foo = 'bar';
-todo1.something = 123;
-todo1.$save();
-.controller('MainCtrl', function($rootScope, $scope, $timeout, $http, geoSvc) {
-
-  // $rootScope.vGM00 = JSON.parse(localStorage.getItem('ls_vGM00'));
-
-  var rsScore = geoSvc.scoreById.get({recId:'5ae78ec6150b711200002e1a'}, function() {
-    $scope.sVGM = rsScore.vGMstats;
-    localStorage.setItem('ls_vGMstats', JSON.stringify(rsScore.vGMstats));
-  });
-
-  $scope.uTH = function(th, rr) {
-    var jj = 0;
-    var th1 = 0;
-    var th2 = 0;
-    var aa = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    th1 = Math.trunc(th / 18);
-    th2 = th % 18;
-    for (jj = 0; jj < 18; jj++) {
-      aa[jj] = th1;
-      if (parseInt(rr[jj]) <= th2) {
-        aa[jj]++;
-      }
-    }
-    return aa;
-  };
-
-  $scope.vp18 = function() {
-    for (jj = 0; jj < $scope.sVGM.vm.pp; jj++) {
-      $scope.sVGM.vp[jj].h = $scope.uTH($scope.sVGM.vp[jj].th, $scope.sVGM.vm.ch);
-    }
-    $scope.updsVGM();
-  };
-
-  $scope.wolfPts = function(jj) {
-    var wxx = 1, ii = 0;
-    for (ii = 0; ii < $scope.sVGM.vm.pp; ii++) {
-      $scope.sVGM.vp[ii].wolf.pts[jj] = 0;
-      if ($scope.sVGM.vp[ii].wolf.winner[jj]) {
-        switch ($scope.sVGM.vp[ii].wolf.role[jj]) {
-         case 'xHunter': 
-           $scope.sVGM.vp[ii].wolf.pts[jj] = 1;
-           break;
-         case 'Hunter': 
-           $scope.sVGM.vp[ii].wolf.pts[jj] = 3;
-           break;
-         case 'Wolf': 
-           $scope.sVGM.vp[ii].wolf.pts[jj] = 2;
-           break;
-         case 'Lone-W': 
-           $scope.sVGM.vp[ii].wolf.pts[jj] = 4;
-           break;
-         case 'Blind-W': 
-           $scope.sVGM.vp[ii].wolf.pts[jj] = 2 * 3;   // triple points for Blind-W
-           break;
-         case '(pig)': 
-           $scope.sVGM.vp[ii].wolf.pts[jj] = 2 * 2;   // double points for (pig)
-           break;
-         default: 
-           break;
-         }   //  end switch
-      }   //  if winner
-    }   // for loop
-  };   //  end scope.wolfPts
-
-  $scope.calcTsw = function () {  
-    var pz4 = -15; var s = 0; var wxx = 1;
-    $scope.sVGM.vm.jp = $scope.sVGM.vm.pp * $scope.sVGM.vm.ww;
-    for (ii = 0; ii < $scope.sVGM.vm.pp; ii++) {
-      $scope.sVGM.vp[ii].ts = 0;
-      $scope.sVGM.vp[ii].tw = 0;
-      $scope.sVGM.vp[ii].wolfPts = 0;
-      for (jj = 0; jj < 18; jj++) {
-       if ($scope.sVGM.vp[ii].s[jj] !== null) {
-        s = $scope.sVGM.vp[ii].s[jj] - $scope.sVGM.vp[ii].h[jj];
-        if (s < -4) { s = -4; }
-        if (s < 6) { pz4 = $scope.sVGM.vm.pz4[s +4]; }
-        $scope.sVGM.vp[ii].w[jj] = pz4;
-        $scope.sVGM.vp[ii].tw += pz4 + $scope.sVGM.vp[ii].u2[jj];
-        $scope.sVGM.vp[ii].ts += $scope.sVGM.vp[ii].s[jj] + $scope.sVGM.vm.cp[jj];
-
-      //  $scope.wolfPts(jj);
-      //  $scope.sVGM.vp[ii].wolfPts += $scope.sVGM.vp[ii].wolf.pts[jj];
-      } }
-      $scope.sVGM.vm.jp -= $scope.sVGM.vp[ii].tw;
-    }
-    $scope.updsVGM();   
-  };
-
-  $scope.updMatch = function() {
-    $scope.sVGM.vp = [];  
-    $scope.sVGM.vp.length = $scope.sVGM.vm.pp;
-    for (ii = 0; ii < $scope.sVGM.vm.pp; ii++) {
-      $scope.sVGM.vp[ii] = angular.copy($rootScope.vGM00.vp);
-    }
-    $scope.updsVGM();   //  updMatch()
-  };
-  $scope.clearMatch = function() {
-    $scope.sVGM.vm = angular.copy($rootScope.vGM00.vm);
-    $scope.updMatch();
-  };
-
-  // for (var j=0; j < $scope.sVGM.vm.pp; j++) {
-    // $rootScope.groups[i].items.push(i + '-' + j);
-  // }
-
-  $scope.toggleGroup = function(group) {
-    group.show = !group.show;
-  };
-  $scope.isGroupShown = function(group) {
-    return group.show;
-  };
-
-  $scope.adjVP = function (kk, ppIdx, hhIdx, ss) {  
-    $scope.sVGM.vp[ppIdx].s[hhIdx] += 0;
-    switch (ss) {
-      case 's':
-        $scope.sVGM.vp[ppIdx].s[hhIdx] += kk;
-        break;
-      case 'u':
-        $scope.sVGM.vp[ppIdx].u2[hhIdx] += kk;
-        break;
-      default:
-        break;
-    }
-    $scope.calcTsw();
-  };
-
-  $scope.updsVGM = function () {  
-    $scope.sVGM.urc += 1;
-    geoSvc.scoreById.update({recId:'5ae78ec6150b711200002e1a'}, {type: "ngR.update", idx: Date.now(), vGMstats: $scope.sVGM});
-    $rootScope.vGm = $scope.sVGM;
-  };
-
-})
-*/
 .factory('geoSvc', function ($rootScope, $resource, $http) {
 
 var _initrScope = function () {   // recMqVmgrTh17ixkj     // /recKbHjCbXLbJuSuJ
@@ -297,10 +127,10 @@ var _initrScope = function () {   // recMqVmgrTh17ixkj     // /recKbHjCbXLbJuSuJ
   });
 
   // get list of known Courses
-//  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
-//  .success(function (jsonData) {
-//    $rootScope.vCourses = angular.copy(jsonData.records);
-//  });
+  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
+  .success(function (jsonData) {
+    $rootScope.vCourses = angular.copy(jsonData.records);
+  });
 
 };
 
