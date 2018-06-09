@@ -31,7 +31,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 
 //  $rootScope.vCourses = [];
   $rootScope.vGM00    = {};
-  $rootScope.vGm      = {};  
+  $rootScope.vGm      = {"vm": { "loc": "Select", "cp": [], "t0": [], "lat": [], "lon": [] }};
   $rootScope.coords = {"lat": 0, "lon": 0};
   $rootScope.geoArr   = { "lat": [ 33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8,33.8 ],
                           "lon": [ -118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3,-118.3 ]  };
@@ -84,7 +84,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   
 })
 .controller('appCtrl', function ($rootScope, $scope, $ionicModal, geoSvc) {
-  $scope.sVGM  = { "vm": { "loc": "", "cp": [], "t0": [], "lat": [], "lon": [] }};
+  $scope.sVGM  = {"vm": { "loc": "", "cp": [], "t0": [], "lat": [], "lon": [] }};
 
   $scope.selCourseF = function (selCC) {
     $scope.sVGM.vm.loc = selCC.fields.Name.substring(0,15);
