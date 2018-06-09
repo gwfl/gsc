@@ -29,7 +29,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 })
 .run( function ($rootScope, $http, geoSvc) {
 
-  $rootScope.vCourses = {};
+//  $rootScope.vCourses = [];
   $rootScope.vGM00    = {};
   $rootScope.vGm      = {};  
   $rootScope.coords = {"lat": 0, "lon": 0};
@@ -41,7 +41,6 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
  // .success(function (jsonData) {
  //   $rootScope.vCourses = angular.copy(jsonData.records);
  // });
-  $rootScope.vCourses = [];
 	
   geoSvc.initrScope();
 
