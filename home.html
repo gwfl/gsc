@@ -8,18 +8,19 @@
   <!-- options= display-Value for ng-repeat  track by unique  -->
       <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
         ng-model="selCC"
-        ng-change="selCourseF(selCC)" style="width: 30px">
+        ng-change="selCourseF(selCC)" style="width: 40px">
       </select> 
     </label>
   </div>
-
-  <div class="col col-33">
-  <label class="item item-input">
-    <input type="text" placeholder="When:" ng-model="sVGM.vm.when">
-  </label>
-
+  <div class="col col-20">
+                      <span class="button button-small button-stable" ng-click="geoCalc()"> Refresh </span>
+   <br />
   </div>
   </div>
+
+<h6 class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA
+  &nbsp;  <span class="button button-small button-light"> {{coords.lat}}, {{coords.lon}}</span>
+</h6>
 </ion-item>
 
 <div  class="list card" ng-repeat="pp in vGm.vp" ng-init="ppIdx = $index">
@@ -59,16 +60,9 @@
   </div>
 </div>
 
-  <h6> 
-  <div class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA
-            &nbsp;  <span class="button button-small button-light"> {{coords.lat}}, {{coords.lon}}</span>   
-  </div>
-</h6>
-                      <span class="button button-small button-stable" ng-click="geoCalc()"> geoCalc </span>
-   <br />
+<br />
 
-  <ion-list>
-                <h4>   </h4>
+<ion-list>
                 <h4>   </h4>
   <div ng-repeat="group in groups"  ng-init="hhIdx = $index">
           <ion-item class="item-stable"
