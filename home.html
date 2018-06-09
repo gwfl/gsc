@@ -1,15 +1,10 @@
 <ion-view view-title="Golf Match">
   <ion-content class="has-header">
 
-<div class="row-fluid">
-  Playing At: {{vGm.vm.loc}} 
-                <h4>   </h4>  
-</div>
-
 <ion-item>
   <div class="row">
   <div class="col">
-    <label class="item item-input item-select"> {{ sVGM.vm.loc }}
+    <label class="item item-input item-select"> {{ vGm.vm.loc }}
   <!-- options= display-Value for ng-repeat  track by unique  -->
       <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
         ng-model="selCC"
