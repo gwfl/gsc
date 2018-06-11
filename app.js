@@ -102,7 +102,8 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $scope.geoCalc = function() {
   for (var jj=0; jj < 18; jj++) {
     $rootScope.groups[jj].geoD = geoSvc.geoDist($rootScope.geoArr.lat[jj], $rootScope.geoArr.lon[jj], $rootScope.coords.lat, $rootScope.coords.lon, 'K'); 
-    if ($rootScope.groups[jj].geoD < 1) { $rootScope.groups[jj].geoD = Math.round($rootScope.groups[jj].geoD * 1000); }
+    if ($rootScope.groups[jj].geoD < 1) { $rootScope.groups[jj].geoD = Math.round($rootScope.groups[jj].geoD * 1100); }
+    else { $rootScope.groups[jj].geoD = $rootScope.groups[jj].geoD * 0.621; }
   }
   };
 
