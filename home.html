@@ -13,104 +13,25 @@
     </label>
   </div>
   <div class="col col-20 text-center">
-                      <span class="button button-small button-stable" ng-click="geoCalc()"> Refresh </span>
+    <span class="button button-small button-stable" ng-click="geoCalc()"> Refresh </span>
   </div>
   </div>
 <h6 class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA </h6>
   <br />  &nbsp;  <span class="button button-small button-light"> {{coords.lat}}, {{coords.lon}}</span>
 </ion-item>
-
-<div  class="list card" ng-repeat="pp in vGm.vp" ng-init="ppIdx = $index">
-  <div class="row">  <div class="col-40">
-<span class="button" ng-click="calcTsw()"><span class="badge badge-energized">{{vGm.vp[ppIdx].nm}}</span>
-  <span class="badge">{{vGm.vp[ppIdx].th}}</span>
-</span></div>
-<div class="col text-center">
-<span class="button button-positive"> {{ vGm.vp[ppIdx].ts }} </span>
-</div>
-<div class="col text-center">
-<span class="button button-small button-balanced"> {{ vGm.vp[ppIdx].tw | currency }} </span>
-</div>
-<div class="col text-center">
-<button class="button button-small button-royal"> {{ vGm.vp[ppIdx].wolfPts }} </button>
-</div></div>
-  <div class="row-fluid"> 
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[0]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[1]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[2]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[3]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[4]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[5]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[6]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[7]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[8]}} </span>
-  <br />
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[9]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[10]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[11]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[12]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[13]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[14]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[15]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[16]}} </span>
-<span class="button button-small button-light"> {{vGm.vp[ppIdx].s[17]}} </span>
-  </div>
-</div>
-
-<br />
-
-<ion-list>
                 <h4>   </h4>
+    <ion-list>
   <div ng-repeat="group in groups"  ng-init="hhIdx = $index">
           <ion-item class="item-stable"
                     ng-click="toggleGroup(group)"
                     ng-class="{active: isGroupShown(group)}">
               <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
             &nbsp;  <span class="button button-small button-calm">HOLE # {{$index+1}}</span>   
-            &nbsp;  <span class="button button-small button-stable"> {{group.geoD}} </span>   
+            &nbsp;  <span class="button button-small button-stable"> {{group.geoD}} yds/miles</span>   
             <span class="badge">  Par {{sVGM.vm.cp[$index]}} / h:{{sVGM.vm.ch[$index]}} </span>  
           </ion-item>
-          <ion-item class="item-accordion"
- ng-repeat="pp in sVGM.vp" ng-init="ppIdx = $index"
- ng-show="isGroupShown(group)">
-              <div class="row">
-                  <div class="col-25">
-                      <span class="button button-small button-stable" ng-click="geoCalc()">
-                          <span class="button button-small button-energized">
-                              {{sVGM.vp[ppIdx].nm}}                          </span>
-                          <span class="button button-small button-stable">{{sVGM.vp[ppIdx].th}}</span>
-                      </span>
-   <br />
-                  </div>
-                  <div class="col">
-                      <span class="button button-small button-light"> 
-                      Score: {{ sVGM.vp[ppIdx].ts }}  <span class="button button-small button-light"> </span>
-                      jPot: {{ sVGM.vp[ppIdx].tw | currency }}  <span class="button button-small button-light"> </span>
-                      Wolf: {{ sVGM.vp[ppIdx].wolfPts }} </span>
-                  </div>
-              </div>
-
-<div class="row"><div class="col text-center">
-  <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'s')"> - </button> 
-  <span class="button button-small  button-light">h:{{sVGM.vp[ppIdx].h[hhIdx]}}</span>
-  <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'s')"> + </button> 
-<br /><br />
-  <span class="button  button-positive"  ng-click="adjVP(0,ppIdx,hhIdx,'s')">{{sVGM.vp[ppIdx].s[hhIdx]}}</span>
-</div><div class="col text-center">
-  <span class="button button-small button-balanced"> {{ sVGM.vp[ppIdx].w[hhIdx] | currency }} </span>
-<br />  <span class="button button-small button-light"> bonus:</span> <br />
-    <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'u')"> - </button>
-      <span class="button button-small button-light"> {{ sVGM.vp[ppIdx].u2[hhIdx] | currency }} </span>
-    <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'u')"> + </button>
-</div><div class="col text-center">
-    <span class="button button-small button-royal" ng-click="geoDist(ppIdx,hhIdx)">
-      {{sVGM.vp[ppIdx].wolf[hhIdx].role}} &nbsp; <i class="icon ion-chevron-down"></i></span>
-          <br />  <span class="button button-small button-light"> winner:</span> <br />
-          <span class="button button-small button-light"> {{sVGM.vp[ppIdx].wolf[hhIdx].pts}}</span>
-</div>    </div>
-      <h4> <br>  </h4>
-          </ion-item>
   </div>
+
   </ion-list>
 
   </ion-content>
