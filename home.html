@@ -27,7 +27,7 @@
                     ng-class="{active: isGroupShown(group)}">
               <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
             &nbsp;  <span class="button button-small button-calm">HOLE # {{$index+1}}</span>   
-            &nbsp;  <span class="button button-small button-stable"> {{group.geoD}} yds/miles</span>   
+            &nbsp;  <span class="button button-small button-stable"> {{group.geoD}} <br /> yds/miles</span>   
             <span class="badge">  Par {{sVGM.vm.cp[$index]}} / h:{{sVGM.vm.ch[$index]}} </span>  
           </ion-item>
   </div>
