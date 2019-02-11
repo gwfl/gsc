@@ -1,1 +1,1 @@
-# gscDB    golf scorecard with database
+# gscDB    test prog
