@@ -127,7 +127,7 @@ var _initrScope = function () {   // recMqVmgrTh17ixkj     // /recKbHjCbXLbJuSuJ
   });
 
   // get list of known Courses
-  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Courses?api_key=key66fQg5IghIIQmb')
+  $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Skins?api_key=key66fQg5IghIIQmb')
   .success(function (jsonData) {
     $rootScope.vCourses = angular.copy(jsonData.records);
   });
