@@ -1,38 +1,50 @@
 <ion-view view-title="Golf Match">
   <ion-content class="has-header">
 
+<ion-list> 
 <ion-item>
-  <div class="row">
-  <div class="col">
-    <label class="item item-input item-select"> {{ vGm.vm.loc }}
-  <!-- options= display-Value for ng-repeat  track by unique  -->
-      <select ng-options="cc.fields.Name for cc in vCourses | orderBy: 'fields.Name' track by cc.id"
-        ng-model="selCC"
-        ng-change="selCourseF(selCC)" style="width: 40px">
-      </select> 
-    </label>
+  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br> 
+  {{x.tsF9}} [{{x.tpF9}}] , {{x.tsB9}} [{{x.tpB9}}] <br> 
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.tsR18}} <span class="button button-small button-calm"> [{{x.tpR18}}] </span>
   </div>
-  <div class="col col-20 text-center">
-    <span class="button button-small button-stable" ng-click="geoCalc()"> Refresh </span>
-  </div>
-  </div>
-<h6 class="row-fluid"> Copyright &copy; &middot; Lee DaBord &middot; Inglewood, CA. USA </h6>
-  <br />  &nbsp;  <span class="button button-small button-light"> {{coords.lat}}, {{coords.lon}}</span>
 </ion-item>
-                <h4>   </h4>
-    <ion-list>
-  <div ng-repeat="group in groups"  ng-init="hhIdx = $index">
-          <ion-item class="item-stable"
-                    ng-click="toggleGroup(group)"
-                    ng-class="{active: isGroupShown(group)}">
-              <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
-            &nbsp;  <span class="button button-small button-calm">HOLE # {{$index+1}}</span>   
-            &nbsp;  <span class="button button-small button-stable" ng-click="geoCalc()"> {{group.geoD}} <br /> yds/miles</span>   
-            <span class="badge">  Par {{sVGM.vm.cp[$index]}} / h:{{sVGM.vm.ch[$index]}} </span>  
-          </ion-item>
+<ion-item>
+ <span> #1 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br> 
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[0]}} <span class="button button-small button-calm"> [{{x.Putts[0]}}] </span>
   </div>
-
-  </ion-list>
+</ion-item>
+<ion-item>
+ <span> #2 >> </span>   <br> <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[1]}} <span class="button button-small button-calm"> [{{x.Putts[1]}}] </span>
+  </div>
+</ion-item>
+<ion-item>
+ <span> #3 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[2]}} <span class="button button-small button-calm"> [{{x.Putts[2]}}] </span>
+  </div>
+</ion-item>
+<ion-item>
+ <span> #8 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[7]}} <span class="button button-small button-calm"> [{{x.Putts[7]}}] </span>
+  </div>
+</ion-item>
+<ion-item>
+ <span> #9 >> </span>  <br>   <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[8]}} <span class="button button-small button-calm"> [{{x.Putts[8]}}] </span>
+  </div>
+</ion-item>
+</ion-list>
+                <h4>   </h4>
+<div class="row-fluid">
+  Teams: {{Teams}}
+</div>
+                <h4>   </h4>
 
   </ion-content>
 </ion-view>
