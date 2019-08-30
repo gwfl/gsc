@@ -1,107 +1,28 @@
 <!DOCTYPE html>
-<html ng-app="ionicApp">
+<html>
 <head>  
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes, width=device-width">
     <title>Skins Game</title>
-
-    <link rel="stylesheet" href="https://code.ionicframework.com/1.3.3/css/ionic.css" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/nightly/css/ionic.css" />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://code.ionicframework.com/1.3.3/js/ionic.bundle.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+    <!-- ionic/angularjs js -->
+    <script src="https://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular-resource.min.js"></script>  <!-- 1.6.10 -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js" type="text/javascript"></script>
-
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
     <!-- your app's js -->
-    <script src="script.js"></script>
+    <script src="app.js"></script>
   </head>
 
-  <body ng-controller="MainCtrl">
+  <body ng-app="gscAppH">
+ 
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    
+    <ion-nav-view> Loading ... </ion-nav-view>
 
-    <ion-nav-view></ion-nav-view>
-
-    <script id="templates/event-menu.html" type="text/ng-template">
-      <ion-side-menus enable-menu-with-back-views="false">
-
-        <ion-side-menu-content>
-          <ion-nav-bar class="bar-positive">
-            <ion-nav-back-button>
-            </ion-nav-back-button>
-
-            <ion-nav-buttons side="left">
-<a  href="#"><button class="button button-icon button-clear ion-ios-home-outline" menu-close></button></a>
-            </ion-nav-buttons>
-            <ion-nav-buttons side="right">
-              <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-              </button>  </ion-nav-buttons>
-        </ion-nav-bar>
-
-          <ion-nav-view name="menuContent"></ion-nav-view>
-        </ion-side-menu-content> 
-
-        <ion-side-menu side="left">
-          <ion-header-bar class="bar-assertive">
-            <h1 class="title">Main Menu</h1>
-          </ion-header-bar>
-          <ion-content>
-<div class="list">
-  <a class="item item-icon-left" href="#" menu-close>
-    <i class="icon ion-ios-home-outline"></i>  HOME   
-  </a>
-</div>
-          </ion-content>
-        </ion-side-menu>
-
-      </ion-side-menus>
-    </script>
-
-    <script id="templates/home.html" type="text/ng-template">
-      <ion-view view-title="Skins Teams">
-        <ion-content>
-
-<ion-list> 
-<ion-item>
- <span> #1 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
-                      <span class="button button-calm"> 
-                    <span> &nbsp; </span>  {{x.Scores[0]}} <span class="button button-small button-calm"> [{{x.Putts[0]}}] </span>
-  </div>
-</ion-item>
-<ion-item>
- <span> #2 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
-                      <span class="button button-calm"> 
-                    <span> &nbsp; </span>  {{x.Scores[1]}} <span class="button button-small button-calm"> [{{x.Putts[1]}}] </span>
-  </div>
-</ion-item>
-<ion-item>
- <span> #3 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
-                      <span class="button button-calm"> 
-                    <span> &nbsp; </span>  {{x.Scores[2]}} <span class="button button-small button-calm"> [{{x.Putts[2]}}] </span>
-  </div>
-</ion-item>
-<ion-item>
- <span> #8 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
-                      <span class="button button-calm"> 
-                    <span> &nbsp; </span>  {{x.Scores[7]}} <span class="button button-small button-calm"> [{{x.Putts[7]}}] </span>
-  </div>
-</ion-item>
-<ion-item>
- <span> #9 >> </span>  <br>  <div   ng-repeat="x in Teams | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
-                      <span class="button button-calm"> 
-                    <span> &nbsp; </span>  {{x.Scores[8]}} <span class="button button-small button-calm"> [{{x.Putts[8]}}] </span>
-  </div>
-</ion-item>
-</ion-list>
-
-<h4>   </h4>
-<div class="row-fluid">
-  Teams: {{Teams}}
-</div>
-                <h4>   </h4>
-
-        </ion-content>
-      </ion-view>
-    </script>
-
- </body>
-
-</html>
+  </body>
