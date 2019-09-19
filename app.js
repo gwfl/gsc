@@ -35,7 +35,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   });
   
   $urlRouterProvider.otherwise("/event/home");
-})
+})   // end .config
 
 .run(function($rootScope, $http) {
   let ii=0, jj=0, newRS=true, tt=0, hh=0, 
@@ -46,10 +46,12 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
             s: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             h: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             w: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            u1:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            u2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+            u1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            u2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+            ct: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null] },
     grp00={ name: "__", isShown: false };
 
+// accGroup used to control the expand/collapse feature of the accordion
   $rootScope.accGroup = [];  // grp00={ name: "__", isShown: false };
   for (hh = 0; hh < 18; hh++) {        
     $rootScope.accGroup.push(JSON.parse(JSON.stringify(grp00)));
@@ -58,6 +60,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
   $rootScope.vMatch = {when: "When", loc: "Where", pp: 0, cp: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ch: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], pz4: [25,10,5,2,0,-1,-2,-4,-6,-8] };
   $rootScope.byTeam = [];
 
+  $rootScope.getrawS = function() {
   $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Skins?api_key=key66fQg5IghIIQmb')
     .success(function (jData) {
       $rootScope.rawS = JSON.parse(JSON.stringify(jData.records));
@@ -67,9 +70,14 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
         hh = $rootScope.rawS[ii].fields.Hole - 1;
         for (jj = 0; jj < $rootScope.byTeam.length; jj++) {
           if ($rootScope.byTeam[jj].name === $rootScope.rawS[ii].fields.Team) {
-            newRS = false; 
+            newRS = false;  
+
+            if ($rootScope.byTeam[jj].ct[hh] == null || 
+                $rootScope.byTeam[jj].ct[hh] < $rootScope.rawS[ii].createdTime)  { 
             $rootScope.byTeam[jj].scores[hh] = $rootScope.rawS[ii].fields.Score;
             $rootScope.byTeam[jj].putts[hh] = $rootScope.rawS[ii].fields.Putts;
+            $rootScope.byTeam[jj].ct[hh] = $rootScope.rawS[ii].createdTime;
+            }
           }
         }
         if (newRS) {
@@ -78,6 +86,7 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
           $rootScope.byTeam[jj].name = $rootScope.rawS[ii].fields.Team;
           $rootScope.byTeam[jj].scores[hh] = $rootScope.rawS[ii].fields.Score;
           $rootScope.byTeam[jj].putts[hh] = $rootScope.rawS[ii].fields.Putts;   
+          $rootScope.byTeam[jj].ct[hh] = $rootScope.rawS[ii].createdTime;
         }
       }
 
@@ -96,14 +105,17 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 
     /* 
     */
-    });
+    });  // end http.get
+  };  // end getrawS()
 
-})
+})   // end .run
 
 .controller('MainCtrl', function($rootScope, $scope, $http) {
+
+  $rootScope.getrawS();
 
   $scope.toggleGroup = function(group) {
     group.isShown = !group.isShown;
   };
 
-});
+});  // end .MainCtrl
