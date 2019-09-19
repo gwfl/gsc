@@ -103,11 +103,9 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
         $rootScope.byTeam[jj].tpR18 = $rootScope.byTeam[jj].tpF9 + $rootScope.byTeam[jj].tpB9;
       }
 
-    /* 
-    */
+    /*    */
     });  // end http.get
   };  // end getrawS()
-
 })   // end .run
 
 .controller('MainCtrl', function($rootScope, $scope, $http) {
