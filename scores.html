@@ -1,59 +1,90 @@
-      <ion-view view-title="Edit Scores">      <ion-content>
-      <ion-list>
-        <div ng-repeat="group in groups"  ng-init="hhIdx = $index">
-          <ion-item class="item-stable"
-                    ng-click="toggleGroup(group)"
-                    ng-class="{active: isGroupShown(group)}">
-              <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
-            &nbsp;
-            <span class="button button-small button-calm">HOLE # {{$index+1}}</span>  
-            <span class="badge">  Par {{sVGM.vm.cp[$index]}} / h:{{sVGM.vm.ch[$index]}} </span>  
-          </ion-item>
-          <ion-item class="item-accordion"
- ng-repeat="pp in sVGM.vp" ng-init="ppIdx = $index"
- ng-show="isGroupShown(group)">
-              <div class="row">
-                  <div class="col-25">
-                      <span class="button button-small button-stable" ng-click="calcTsw()">
-                          <span class="button button-small button-energized">
-                              {{sVGM.vp[ppIdx].nm}}                          </span>
-                          <span class="button button-small button-stable">{{sVGM.vp[ppIdx].th}}</span>
-                      </span>
-   <br />
-                  </div>
-                  <div class="col">
-                      <span class="button button-small button-light"> 
-                      Score: {{ sVGM.vp[ppIdx].ts }}  <span class="button button-small button-light"> </span>
-                      jPot: {{ sVGM.vp[ppIdx].tw | currency }}  <span class="button button-small button-light"> </span>
-                      Wolf: {{ sVGM.vp[ppIdx].wolfPts }} </span>
-                  </div>
-              </div>
+<ion-view view-title="Golf Match">
 
-<div class="row"><div class="col text-center">
-  <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'s')"> - </button> 
-  <span class="button button-small  button-light">h:{{sVGM.vp[ppIdx].h[hhIdx]}}</span>
-  <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'s')"> + </button> 
-<br /><br />
-  <span class="button  button-positive"  ng-click="adjVP(0,ppIdx,hhIdx,'s')">{{sVGM.vp[ppIdx].s[hhIdx]}}</span>
-</div><div class="col text-center">
-  <span class="button button-small button-balanced"> {{ sVGM.vp[ppIdx].w[hhIdx] | currency }} </span>
-<br />  <span class="button button-small button-light"> bonus:</span> <br />
-    <button class="button button-small button-stable" ng-click="adjVP(-1,ppIdx,hhIdx,'u')"> - </button>
-      <span class="button button-small button-light"> {{ sVGM.vp[ppIdx].u2[hhIdx] | currency }} </span>
-    <button class="button button-small button-stable" ng-click="adjVP(1,ppIdx,hhIdx,'u')"> + </button>
-</div><div class="col text-center">
-    <span class="button button-small button-royal" ng-click="wrPop(ppIdx,hhIdx)">{{sVGM.vp[ppIdx].wolf[hhIdx].role}} &nbsp; <i class="icon ion-chevron-down"></i></span>
-          <br />  <span class="button button-small button-light"> winner:</span> <br />
-          <span class="button button-small button-light"> {{sVGM.vp[ppIdx].wolf[hhIdx].pts}}</span>
-          <label class="toggle toggle-energized">
-              <input type="checkbox" ng-model="sVGM.vp[ppIdx].wolf[hhIdx].winner" ng-change="adjVP(0,ppIdx,hhIdx,'s')">
-              <div class="track">
-                  <div class="handle"></div>
-              </div>
-          </label>
-</div>    </div>
-      <h4> <br>  </h4>
-          </ion-item>
-        </div>
-      </ion-list>
-      </ion-content>      </ion-view>
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+<a target="_" href="https://airtable.com/shrMMjfn75ibr8V2g">
+    <button class="button button-stable">   <i class="icon ion-edit"></i> Edit Scores </button> </a>
+  </ion-nav-buttons>
+
+<ion-header-bar class="bar-positive">
+    <h1 class="title"> </h1>
+  </ion-header-bar>
+
+  <ion-content class="has-header">
+    <ion-list>
+      <div ng-repeat="group in accGroup"  ng-init="hhidx = $index">
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(group)"
+                  ng-class="{active: group.isShown}">
+          <i class="icon" ng-class="group.isShown ? 
+          'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          Hole #{{hhidx+1}}
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-repeat="item in byTeam"
+  ng-init="ttidx = $index"
+                  ng-show="group.isShown">
+          {{item.name}} :: {{item.scores[hhidx]}} / {{item.putts[hhidx]}}
+        </ion-item>
+      </div>
+    </ion-list>
+
+<ion-list> 
+<ion-item>
+  <div class="button button-small"> :: {{x.Team}} :: </div>
+  <div class="button button-small">               
+                    <span> &nbsp; </span>  {{x.tsR18}} <span class="button button-small button-dark"> [{{x.tpR18}}] </span>
+  </div>
+  <div class="button button-small">
+                   <span class="button button-royal"> 
+                    <span> &nbsp; </span>  {{x.tsF9}} <span class="button button-small button-royal"> [{{x.tpF9}}] </span></span>    <br>   
+     :: {{x.Scores}} :: <br>   {{x.Putts}} 
+  </div>
+  <div class="button button-small">
+                   <span class="button button-royal"> 
+                    <span> &nbsp; </span>  {{x.tsB9}} <span class="button button-small button-royal"> [{{x.tpB9}}] </span>
+</span>    <br>   <span ng-repeat="yy in x.Scores track by 'x.Team'">
+     :: {{yy}} :: <br>   {{x.Putts[$index]}}  </span>
+  </div>
+</ion-item>
+<ion-item>
+ <span> #1 >> </span>  <br>  <div   ng-repeat="x in byTeam | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br> 
+                      <span class="button button-balanced"> 
+                    <span> &nbsp; </span>  {{x.Scores[0]}} <span class="button button-small button-assertive"> [{{x.Putts[0]}}] </span>
+ </span>  </div>
+</ion-item>
+<ion-item>
+ <span> #2 >> </span>   <br> <div   ng-repeat="x in byTeam | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-energized"> 
+                    <span> &nbsp; </span>  {{x.Scores[1]}} <span class="button button-small button-royal"> [{{x.Putts[1]}}] </span>
+ </span>  </div>
+</ion-item>
+<ion-item>
+ <span> #3 >> </span>  <br>  <div   ng-repeat="x in byTeam | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[2]}} <span class="button button-small button-calm"> [{{x.Putts[2]}}] </span>
+ </span>  </div>
+</ion-item>
+<ion-item>
+ <span> #8 >> </span>  <br>  <div   ng-repeat="x in byTeam | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[7]}} <span class="button button-small button-calm"> [{{x.Putts[7]}}] </span>
+  </span>  </div>
+</ion-item>
+<ion-item>
+ <span> #9 >> </span>  <br>   <div   ng-repeat="x in byTeam | orderBy:'Team'" class="button button-small"> :: {{x.Team}} :: <br>
+                      <span class="button button-calm"> 
+                    <span> &nbsp; </span>  {{x.Scores[8]}} <span class="button button-small button-royal"> [{{x.Putts[8]}}] </span>
+  </span>  </div>
+</ion-item>
+</ion-list>
+
+<div class="row-fluid">
+  Teams: {{byTeam}}
+</div>
+
+  </ion-content>
+</ion-view>
