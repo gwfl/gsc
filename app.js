@@ -49,10 +49,10 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
             u1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             u2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
             ct: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null] },
-    grp00={ name: "__", isShown: false };
+    grp00={ name:"__", isShown:false, accTeam:[] };
 
 // accGroup used to control the expand/collapse feature of the accordion
-  $rootScope.accGroup = [];  // grp00={ name: "__", isShown: false };
+  $rootScope.accGroup = [];  // grp00={ name: "__", isShown: false, accTeam: [ ] };
   for (hh = 0; hh < 18; hh++) {        
     $rootScope.accGroup.push(JSON.parse(JSON.stringify(grp00)));
   };
@@ -89,18 +89,20 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
           $rootScope.byTeam[jj].ct[hh] = $rootScope.rawS[ii].createdTime;
         }
       }
+      
 
+      for (hh=0;hh<18;hh++) { 
       for (jj = 0; jj < $rootScope.byTeam.length; jj++) {
-        for (hh = 0; hh < 9; hh++) {        
+        if (hh < 9) {        
             $rootScope.byTeam[jj].tsF9 += $rootScope.byTeam[jj].scores[hh];
             $rootScope.byTeam[jj].tpF9 += $rootScope.byTeam[jj].putts[hh];
-        }
-        for (hh = 9; hh < 18; hh++) {        
+        } else if (hh < 18) {        
             $rootScope.byTeam[jj].tsB9 += $rootScope.byTeam[jj].scores[hh];
             $rootScope.byTeam[jj].tpB9 += $rootScope.byTeam[jj].putts[hh];
         }
-        $rootScope.byTeam[jj].tsR18 = $rootScope.byTeam[jj].tsF9 + $rootScope.byTeam[jj].tsB9;
-        $rootScope.byTeam[jj].tpR18 = $rootScope.byTeam[jj].tpF9 + $rootScope.byTeam[jj].tpB9;
+        $rootScope.byTeam[jj].tsR18 += $rootScope.byTeam[jj].scores[hh];
+        $rootScope.byTeam[jj].tpR18 += $rootScope.byTeam[jj].putts[hh];
+      }
       }
 
     /*    */
