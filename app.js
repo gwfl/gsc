@@ -59,7 +59,9 @@ angular.module('gscAppH', ['ionic', 'ngResource'])
 
   $rootScope.vMatch = {when: "When", loc: "Where", pp: 0, cp: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ch: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], pz4: [25,10,5,2,0,-1,-2,-4,-6,-8] };
   $rootScope.byTeam = [];
-
+  
+  // Alpha Vantage ::  https://www.alphavantage.co/query?function=SECTOR&apikey=52DCT7KVVJXBU7VT
+  
   $rootScope.getrawS = function() {
   $http.get('https://api.airtable.com/v0/app0hohtq4b1nM0Kb/Skins?api_key=key66fQg5IghIIQmb')
     .success(function (jData) {
